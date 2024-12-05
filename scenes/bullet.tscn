@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://di838h1uhyelj"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_655lq"]
+[ext_resource type="Texture2D" uid="uid://cdb87et4llm68" path="res://assets/bullet/Fire Effect and Bullet 16x16.png" id="2_kxtsx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ykv6"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsee5"]
+atlas = ExtResource("2_kxtsx")
+region = Rect2(480, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3d042"]
+atlas = ExtResource("2_kxtsx")
+region = Rect2(496, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyv7t"]
+atlas = ExtResource("2_kxtsx")
+region = Rect2(512, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbfw5"]
+atlas = ExtResource("2_kxtsx")
+region = Rect2(528, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8fpi"]
+atlas = ExtResource("2_kxtsx")
+region = Rect2(544, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unyke"]
+atlas = ExtResource("2_kxtsx")
+region = Rect2(560, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j0ys8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsee5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3d042")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyv7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbfw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8fpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unyke")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwe30"]
+radius = 4.0
+
+[node name="bullet" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 137
+script = ExtResource("1_655lq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 2
+shape = SubResource("CircleShape2D_4ykv6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.47035e-08, 4.47035e-08)
+scale = Vector2(0.45, 0.45)
+sprite_frames = SubResource("SpriteFrames_j0ys8")
+autoplay = "default"
+frame_progress = 0.241596
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 137
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_gwe30")
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

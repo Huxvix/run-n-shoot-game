@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://tlku4iwd14g7"]
+
+[ext_resource type="Script" path="res://scripts/explosion.gd" id="1_mo8j3"]
+[ext_resource type="Texture2D" uid="uid://ctq613frlu3rs" path="res://assets/explosion/explosion.png" id="2_2wpqs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ehfo"]
+atlas = ExtResource("2_2wpqs")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2d1q"]
+atlas = ExtResource("2_2wpqs")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfi6y"]
+atlas = ExtResource("2_2wpqs")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3aa4l"]
+atlas = ExtResource("2_2wpqs")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4js56"]
+atlas = ExtResource("2_2wpqs")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8rfnd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ehfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2d1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfi6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3aa4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4js56")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w3g13"]
+radius = 13.0384
+
+[node name="explosion" type="Node2D"]
+script = ExtResource("1_mo8j3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(5.96046e-08, 0)
+scale = Vector2(1.375, 1.375)
+sprite_frames = SubResource("SpriteFrames_8rfnd")
+autoplay = "default"
+
+[node name="damage_area" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_area"]
+shape = SubResource("CircleShape2D_w3g13")
+
+[node name="explosion_duration" type="Timer" parent="."]
+autostart = true
+
+[node name="damage_timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="area_shape_entered" from="damage_area" to="." method="_on_damage_area_area_shape_entered"]
+[connection signal="body_entered" from="damage_area" to="." method="_on_damage_area_body_entered"]
+[connection signal="timeout" from="explosion_duration" to="." method="_on_explosion_duration_timeout"]
+[connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]

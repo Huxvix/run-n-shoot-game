@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://da3dui4ofcc5u"]
+
+[ext_resource type="Script" path="res://scripts/staminabar.gd" id="1_khqsr"]
+
+[sub_resource type="Theme" id="Theme_d6pdf"]
+
+[node name="staminabar" type="ProgressBar"]
+modulate = Color(0.800276, 0, 0.060789, 1)
+z_index = 10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = -912.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "
+"
+show_percentage = false
+script = ExtResource("1_khqsr")
+
+[node name="healthbarLabel" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_right = 89.0
+offset_bottom = 40.0
+theme = SubResource("Theme_d6pdf")
+text = "Stamina"
