@@ -649,6 +649,7 @@ motion_mode = 1
 script = ExtResource("1_yo7s3")
 speed = 30
 max_hp = 40
+damage = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.305882, 0, 0.74902, 1)
@@ -721,7 +722,6 @@ simplify_epsilon = 0.1
 avoidance_enabled = true
 radius = 20.0
 max_neighbors = 1
-debug_enabled = true
 
 [connection signal="body_entered" from="aggro_area" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="aggro_area" to="." method="_on_aggro_area_body_exited"]

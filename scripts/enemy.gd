@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends entity
 class_name enemy
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -10,19 +10,12 @@ class_name enemy
 @onready var attack_cooldown: Timer = $attack_cooldown
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 
-@export var speed = 15  # speed in pixels/sec
-@export var max_hp: int
-var hp
-@export var defense = 0
-@export var damage = 10
-
 var target: Node2D
 var is_enemy: bool = true
 var is_attacking: bool = false
 var can_attack: bool = true
 var player_in_range: bool = false
 var looking_direction: String = "down"
-var regenerating_hp: bool = true
 
 func _ready() -> void:
 	hp = max_hp
@@ -62,10 +55,10 @@ func update_health():
 	print(hp)
 	if hp == 0:
 		die()
-
 #healing
 func take_heal(heal:int):
 	hp += heal
+
 func _on_aggro_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") && target == null:
 		target = body
